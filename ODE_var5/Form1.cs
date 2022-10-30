@@ -22,29 +22,32 @@ namespace ODE_var5
 
         public void CalcRK4()
         {
-            double[] y0 = new double[2];
+            double[] y0 = new double[3];
             y0[0] = Convert.ToDouble(textBox1.Text);
             y0[1] = Convert.ToDouble(textBox2.Text);
+            y0[2] = Convert.ToDouble(textBox3.Text);
+            int x = Convert.ToInt32(X.Text);
 
             Iode c = new Calculation();
 
-            Func<double, Vector<double>, Vector<double>> f = (t, y) => Vector<double>.Build.Dense(new[] { y[1], ((1 - y[0] * y[0]) * y[1] - y[0]) });
+            //Func<double, Vector<double>, Vector<double>> f = (t, y) => Vector<double>.Build.Dense(new[] { y[1], ((1 - y[0] * y[0]) * y[1] - y[0]) });
+            Func<double, Vector<double>, Vector<double>> f = (t, y) => Vector<double>.Build.Dense(new[] { ((1.43*x-114.6*y[0]-43.9*y[1]-y[2])/19.8), y[0], y[1] });
 
-            
             double t0 = 0;
             double tmax = 0.1;
             double tau = 0.01;
             int N = Convert.ToInt32((tmax - t0) / tau);
 
-            double[,] res = new double[N, 2];
+            double[,] res = new double[N, 3];
             res = c.CalcODE(y0,t0,tmax,f);
-            dgvRes.ColumnCount = 2;
+            dgvRes.ColumnCount = 3;
             for (int i = 0; i < N - 1; i++)
             {
 
                 dgvRes.Rows.Add();
                 dgvRes[0, i].Value = res[i, 0];
                 dgvRes[1, i].Value = res[i, 1];
+                dgvRes[2, i].Value = res[i, 2];
             }
 
 
