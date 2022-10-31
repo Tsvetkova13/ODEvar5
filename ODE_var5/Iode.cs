@@ -10,7 +10,7 @@ namespace ODE_var5
 {
     public interface Iode
     {
-        //double[,] CalcODE();
+        Complex32 CalcWp(Complex32 p);
         double[,] CalcODE(double[] y, double t0, double tmax, Func<double, Vector<double>, Vector<double>> f);
     }
 }

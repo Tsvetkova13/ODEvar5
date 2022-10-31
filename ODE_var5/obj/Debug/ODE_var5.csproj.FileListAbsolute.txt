@@ -26,3 +26,17 @@ D:\Education\Magistratura\3 семестр\АСУ\ODE_var5\ODE_var5\obj\Debug\OD
 D:\Education\Magistratura\3 семестр\АСУ\ODE_var5\ODE_var5\obj\Debug\ODE_var5.csproj.CopyComplete
 D:\Education\Magistratura\3 семестр\АСУ\ODE_var5\ODE_var5\obj\Debug\ODE_var5.exe
 D:\Education\Magistratura\3 семестр\АСУ\ODE_var5\ODE_var5\obj\Debug\ODE_var5.pdb
+F:\labs\Math\ODEvar5\ODE_var5\bin\Debug\ODE_var5.exe.config
+F:\labs\Math\ODEvar5\ODE_var5\bin\Debug\ODE_var5.exe
+F:\labs\Math\ODEvar5\ODE_var5\bin\Debug\ODE_var5.pdb
+F:\labs\Math\ODEvar5\ODE_var5\bin\Debug\MathNet.Numerics.dll
+F:\labs\Math\ODEvar5\ODE_var5\bin\Debug\MathNet.Numerics.xml
+F:\labs\Math\ODEvar5\ODE_var5\obj\Debug\ODE_var5.csproj.AssemblyReference.cache
+F:\labs\Math\ODEvar5\ODE_var5\obj\Debug\ODE_var5.csproj.SuggestedBindingRedirects.cache
+F:\labs\Math\ODEvar5\ODE_var5\obj\Debug\ODE_var5.Form1.resources
+F:\labs\Math\ODEvar5\ODE_var5\obj\Debug\ODE_var5.Properties.Resources.resources
+F:\labs\Math\ODEvar5\ODE_var5\obj\Debug\ODE_var5.csproj.GenerateResource.cache
+F:\labs\Math\ODEvar5\ODE_var5\obj\Debug\ODE_var5.csproj.CoreCompileInputs.cache
+F:\labs\Math\ODEvar5\ODE_var5\obj\Debug\ODE_var5.csproj.CopyComplete
+F:\labs\Math\ODEvar5\ODE_var5\obj\Debug\ODE_var5.exe
+F:\labs\Math\ODEvar5\ODE_var5\obj\Debug\ODE_var5.pdb

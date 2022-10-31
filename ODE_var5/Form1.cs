@@ -4,7 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MathNet.Numerics;
@@ -31,7 +33,7 @@ namespace ODE_var5
             Iode c = new Calculation();
 
             //Func<double, Vector<double>, Vector<double>> f = (t, y) => Vector<double>.Build.Dense(new[] { y[1], ((1 - y[0] * y[0]) * y[1] - y[0]) });
-            Func<double, Vector<double>, Vector<double>> f = (t, y) => Vector<double>.Build.Dense(new[] { ((1.43*x-114.6*y[0]-43.9*y[1]-y[2])/19.8), y[0], y[1] });
+            Func<double, Vector<double>, Vector<double>> f = (t, y) => Vector<double>.Build.Dense(new[] { ((1.43 * x - 114.6 * y[0] - 43.9 * y[1] - y[2]) / 19.8), y[0], y[1] });
 
             double t0 = 0;
             double tmax = 0.1;
@@ -39,17 +41,44 @@ namespace ODE_var5
             int N = Convert.ToInt32((tmax - t0) / tau);
 
             double[,] res = new double[N, 3];
-            res = c.CalcODE(y0,t0,tmax,f);
-            dgvRes.ColumnCount = 3;
-            for (int i = 0; i < N - 1; i++)
+            //while (true)
             {
+                res = c.CalcODE(y0, t0, tmax, f);
+                dgvRes.ColumnCount = 3;
+                for (int i = 0; i < N - 1; i++)
+                {
 
-                dgvRes.Rows.Add();
-                dgvRes[0, i].Value = res[i, 0];
-                dgvRes[1, i].Value = res[i, 1];
-                dgvRes[2, i].Value = res[i, 2];
+                    dgvRes.Rows.Add();
+                    dgvRes[0, i].Value = res[i, 0];
+                    dgvRes[1, i].Value = res[i, 1];
+                    dgvRes[2, i].Value = res[i, 2];
+                }
+
+
+
+                var Ae = 0.0143;
+                //решение уравнения
+                //....
+
+                //w среза
+                double wsr = 0.92;
+
+                Complex32 omega = Complex32.Zero;
+                //Complex32 omega = new Complex32(10.0f, 0.0f);
+                //вызов функции для получения значения W(p) в виде комплексного числа
+                var Wp = c.CalcWp(omega);
+                //Квадрат
+                var Wpsquare = Wp.Square();
+
+                Complex32 Aw = Complex32.Sqrt(Wpsquare.Real + Wpsquare.Imaginary);
+
+
+                //время квантования
+                var tkv = 3.1415 / wsr;
+                //задержка перед новым расчетом
+                var tkvXms = (int)tkv * 1000;
+                //Thread.Sleep(tkvXms);
             }
-
 
 
             /*Vector<double> y0 = Vector<double>.Build.Dense(2);
@@ -98,7 +127,7 @@ namespace ODE_var5
         private void button1_Click(object sender, EventArgs e)
         {
             CalcRK4();
-            
+
         }
     }
 }

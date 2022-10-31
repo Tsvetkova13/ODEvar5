@@ -9,7 +9,7 @@ using MathNet.Numerics.OdeSolvers;
 
 namespace ODE_var5
 {
-    public class Calculation:Iode
+    public class Calculation : Iode
     {
         /*public double[,] CalcODE()
         {
@@ -45,7 +45,7 @@ namespace ODE_var5
             y0[0] = y[0];
             y0[1] = y[1];
             y0[2] = y[2];
-            
+
             double tau = 0.01;
             int N = Convert.ToInt32((tmax - t0) / tau);
             double[,] res = new double[N, 3];
@@ -66,5 +66,14 @@ namespace ODE_var5
 
         }
 
+        public Complex32 CalcWp(Complex32 omega)
+        {
+            var topCoef = new Complex32(1.43f, 0.0f);
+            var firstCoef = new Complex32(19.8f, 0.0f);
+            var secondCoef = new Complex32(114.6f, 0.0f);
+            var thirdCoef = new Complex32(43.9f, 0.0f);
+            var p = Complex32.ImaginaryOne * omega;
+            return topCoef / (firstCoef * p * p * p + secondCoef * p * p + thirdCoef * p + 1);
+        }
     }
 }
