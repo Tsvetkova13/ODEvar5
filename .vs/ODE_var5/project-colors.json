@@ -20,7 +20,12 @@
       "ProjectGuid": "85dfd851-25f3-433b-babd-32099423db08",
       "DisplayName": "TestODEvar5",
       "ColorIndex": 2
+    },
+    "f2b0e85d-8201-4347-86c6-908408a7b014": {
+      "ProjectGuid": "f2b0e85d-8201-4347-86c6-908408a7b014",
+      "DisplayName": "NLES",
+      "ColorIndex": 3
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }
