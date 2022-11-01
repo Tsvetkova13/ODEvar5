@@ -11,7 +11,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
+using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Numerics.OdeSolvers;
+using NLES;
+using NLES.Contracts;
+using NLES.Tests;
+
 
 namespace ODE_var5
 {
@@ -58,7 +63,30 @@ namespace ODE_var5
 
                 var Ae = 0.0143;
                 //решение уравнения
-                //....
+                // ARRANGE
+                Vector<double> Function(Vector<double> u) => new DenseVector(2)
+                {
+                    [0] = u[0] * u[0] + 2 * u[1] * u[1],
+                    [1] = 2 * u[0] * u[0] + u[1] * u[1]
+                };
+
+                NonLinearSolver Stiffness(Vector<double> u) => NonLinearSolver(2, 2)
+                {
+                    [0, 0] = 2 * u[0],
+                    [0, 1] = 4 * u[1],
+                    [1, 0] = 4 * u[0],
+                    [1, 1] = 2 * u[1]
+                };
+                DenseVector force = new DenseVector(2) { [0] = 3, [1] = 3 };
+                NonLinearSolver Solver = NonLinearSolver.Builder
+
+                .Solve(2, Function, Stiffness)
+                .Under(force)
+                .WithInitialConditions(0.1, DenseVector.Create(2, 0), DenseVector.Create(2, 1))
+                .Build();
+
+                // ACT
+                List<LoadState> states = Solver.Broadcast().TakeWhile(x => x.Lambda <= 1).ToList();
 
                 //w среза
                 double wsr = 0.92;

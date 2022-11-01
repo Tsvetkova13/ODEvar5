@@ -87,5 +87,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\NonLinearEquationsSolver-master\NonLinearEquationsSolver-master\NLES.Tests\NLES.Tests.csproj">
+      <Project>{e713cc02-5a4e-432a-bcdd-ef5fca79b027}</Project>
+      <Name>NLES.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\NonLinearEquationsSolver-master\NonLinearEquationsSolver-master\NLES\NLES.csproj">
+      <Project>{f2b0e85d-8201-4347-86c6-908408a7b014}</Project>
+      <Name>NLES</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
