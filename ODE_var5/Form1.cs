@@ -9,13 +9,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DigitalRune.Mathematics.Analysis;
 using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
 using MathNet.Numerics.OdeSolvers;
-using NLES;
-using NLES.Contracts;
-using NLES.Tests;
+
+
 
 
 namespace ODE_var5
@@ -25,10 +25,15 @@ namespace ODE_var5
         public Form1()
         {
             InitializeComponent();
+            textBox1.Text = "1";
+            textBox2.Text = "1";
+            textBox3.Text = "1";
+            X.Text = "1";
         }
 
         public void CalcRK4()
         {
+            
             double[] y0 = new double[3];
             y0[0] = Convert.ToDouble(textBox1.Text);
             y0[1] = Convert.ToDouble(textBox2.Text);
@@ -59,40 +64,29 @@ namespace ODE_var5
                     dgvRes[2, i].Value = res[i, 2];
                 }
 
-
-
-                var Ae = 0.0143;
                 //решение уравнения
-                // ARRANGE
-                Vector<double> Function(Vector<double> u) => new DenseVector(2)
-                {
-                    [0] = u[0] * u[0] + 2 * u[1] * u[1],
-                    [1] = 2 * u[0] * u[0] + u[1] * u[1]
-                };
-
-                NonLinearSolver Stiffness(Vector<double> u) => NonLinearSolver(2, 2)
-                {
-                    [0, 0] = 2 * u[0],
-                    [0, 1] = 4 * u[1],
-                    [1, 0] = 4 * u[0],
-                    [1, 1] = 2 * u[1]
-                };
-                DenseVector force = new DenseVector(2) { [0] = 3, [1] = 3 };
-                NonLinearSolver Solver = NonLinearSolver.Builder
-
-                .Solve(2, Function, Stiffness)
-                .Under(force)
-                .WithInitialConditions(0.1, DenseVector.Create(2, 0), DenseVector.Create(2, 1))
-                .Build();
-
-                // ACT
-                List<LoadState> states = Solver.Broadcast().TakeWhile(x => x.Lambda <= 1).ToList();
+                var Ae = 0.0143;
+                //1 метод
+                ImprovedNewtonRaphsonMethodD rootFinder = new ImprovedNewtonRaphsonMethodD(Foo, FooDerived);
+                double x0 =0;
+                double x1 = 1;
+                rootFinder.ExpandBracket(ref x0, ref x1, Ae);
+                var wsr = rootFinder.FindRoot(x0, x1, Ae);
+                //2 метод
+                BisectionMethodD bisectionMethodD = new BisectionMethodD(Foo);
+                bisectionMethodD.ExpandBracket(ref x0, ref x1, Ae);
+                var wsr2 = bisectionMethodD.FindRoot(x0, x1, Ae);
+                //3 метод
+                RegulaFalsiMethodD regulaFalsiMethodD = new RegulaFalsiMethodD(Foo);
+                regulaFalsiMethodD.ExpandBracket(ref x0, ref x1, Ae);
+                var wsr3 = bisectionMethodD.FindRoot(x0, x1, Ae);
 
                 //w среза
-                double wsr = 0.92;
+                float mywsr = (float)wsr;
+                float truewsr = 0.92f;
 
-                Complex32 omega = Complex32.Zero;
-                //Complex32 omega = new Complex32(10.0f, 0.0f);
+                //Complex32 omega = Complex32.Zero;
+                Complex32 omega = new Complex32(mywsr, 0.0f);
                 //вызов функции для получения значения W(p) в виде комплексного числа
                 var Wp = c.CalcWp(omega);
                 //Квадрат
@@ -118,7 +112,7 @@ namespace ODE_var5
             double tau = 0.01;
             int N = Convert.ToInt32((tmax - t0) / tau);
 
-            
+
 
             Func<double, Vector<double>, Vector<double>> f = (t, y) => Vector<double>.Build.Dense(new[] { y[1], ((1 - y[0] * y[0]) * y[1] - y[0]) });
 
@@ -146,7 +140,21 @@ namespace ODE_var5
 
 
         }
+        private static double Foo(double x)
+        {
+            var da = 1.43 / (19.8 * x * x * x + 114.6 * x * x + 43.9 * x + 1.0)/* - 0.0143*/;
+            //var fa = (float)da;
+            //var a = 1.43f / (19.8f * x * x * x + 114.6f * x * x + 43.9f * x + 1.0f) - 0.0143f;
+            return da;
+        }
 
+        private static double FooDerived(double x)
+        {
+            var da =(- 0.160129 - 0.836027 * x - 0.216667 *x*x)/((0.0505051 + 2.21717 *x + 5.78788*x*x + x*x*x)* (0.0505051 + 2.21717 * x + 5.78788 * x * x + x * x * x));
+            //var fa = (float)da;
+            //var a = (-0.216667f * x - 0.836027f * x - 0.160129f) / ((x * x * x + 5.78788f * x * x + 2.21717f * x + 0.0505051f) * (x * x * x + 5.78788f * x * x + 2.21717f * x + 0.0505051f));
+            return da;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
 
