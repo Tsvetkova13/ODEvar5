@@ -12,10 +12,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestODEvar5", "TestODEvar5\
 		{C5046170-C22E-4065-95DD-72A66292930E} = {C5046170-C22E-4065-95DD-72A66292930E}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NLES", "..\NonLinearEquationsSolver-master\NonLinearEquationsSolver-master\NLES\NLES.csproj", "{F2B0E85D-8201-4347-86C6-908408A7B014}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NLES.Tests", "..\NonLinearEquationsSolver-master\NonLinearEquationsSolver-master\NLES.Tests\NLES.Tests.csproj", "{E713CC02-5A4E-432A-BCDD-EF5FCA79B027}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,14 +26,6 @@ Global
 		{85DFD851-25F3-433B-BABD-32099423DB08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85DFD851-25F3-433B-BABD-32099423DB08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85DFD851-25F3-433B-BABD-32099423DB08}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F2B0E85D-8201-4347-86C6-908408A7B014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F2B0E85D-8201-4347-86C6-908408A7B014}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F2B0E85D-8201-4347-86C6-908408A7B014}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F2B0E85D-8201-4347-86C6-908408A7B014}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E713CC02-5A4E-432A-BCDD-EF5FCA79B027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E713CC02-5A4E-432A-BCDD-EF5FCA79B027}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E713CC02-5A4E-432A-BCDD-EF5FCA79B027}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E713CC02-5A4E-432A-BCDD-EF5FCA79B027}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
